@@ -1,12 +1,13 @@
 ########################################
 # servers/trackinfo_server.py (텍스트 플레이리스트 전용)
 ########################################
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 from schemas import TextPlaylistInput, TextPlaylistMoodResult, TrackInfo
 from utils.track_lookup import parse_line, itunes_genre, mb_genre
 from utils.playlist import mood_from_genres
 
 app = FastMCP("trackinfo-mcp")
+
 
 @app.tool()
 def resolve_text_playlist(input: TextPlaylistInput) -> TextPlaylistMoodResult:
@@ -33,6 +34,7 @@ def resolve_text_playlist(input: TextPlaylistInput) -> TextPlaylistMoodResult:
     top = ", ".join([f"{g}×{c}" for g,c in Counter([g or "unknown" for g in genres]).most_common(3)])
     summary = f"장르 분포: {top}"
     return TextPlaylistMoodResult(label=label, summary=summary, tracks=resolved)
+
 
 if __name__ == "__main__":
     app.run()

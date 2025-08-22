@@ -1,0 +1,11 @@
+{
+  "image": "bom.jpeg",
+  "playlist": null,
+  "mbti": "ENFP",
+  "diary": null,
+  "persona": { "age": 27, "gender": "female", "nationality": "KR" },
+  "target": 14,
+  "timeout": 8.0,
+  "allow_no_image": true,
+  "weather": true
+}

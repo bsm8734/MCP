@@ -52,11 +52,13 @@ def mood_from_genres(genres: List[str]) -> str:
     label = max(score, key=score.get)
     return label if score[label]>0 else DEFAULT_LABEL
 
+
 def _avg(xs: List[float]) -> float:
     try:
         return float(statistics.fmean(xs))
     except Exception:
         return float(sum(xs)/max(1,len(xs)))
+
 
 def summarize_features(tracks: List[Dict[str, Any]]) -> Dict[str, float]:
     e = _avg([t.get("energy",0.5) for t in tracks])
@@ -64,6 +66,7 @@ def summarize_features(tracks: List[Dict[str, Any]]) -> Dict[str, float]:
     d = _avg([t.get("danceability",0.5) for t in tracks])
     tempo = _avg([t.get("tempo",110) for t in tracks])
     return {"energy":e,"valence":v,"danceability":d,"tempo":tempo}
+
 
 def label_mood(stats: Dict[str,float]) -> str:
     e,v,d,t = stats["energy"], stats["valence"], stats["danceability"], stats["tempo"]

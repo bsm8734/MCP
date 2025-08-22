@@ -9,12 +9,14 @@ ITUNES_SEARCH = "https://itunes.apple.com/search"
 MB_RECORDING = "https://musicbrainz.org/ws/2/recording/"
 HEADERS = {"User-Agent":"dayline-mcp/1.0 (contact: dev@example.com)"}
 
+
 def parse_line(line: str) -> Tuple[str,str]:
     s = line.strip()
     if " - " in s:
         a, t = s.split(" - ", 1)
         return a.strip(), t.strip()
     return "", s
+
 
 def itunes_genre(artist: str, title: str) -> Tuple[str,float]:
     q = f"{artist} {title}".strip()
@@ -28,6 +30,7 @@ def itunes_genre(artist: str, title: str) -> Tuple[str,float]:
     best = max(items, key=lambda it: fuzz.token_set_ratio(q, f"{it.get('artistName','')} {it.get('trackName','')}") )
     score = fuzz.token_set_ratio(q, f"{best.get('artistName','')} {best.get('trackName','')}") / 100.0
     return (best.get("primaryGenreName","") or ""), float(score)
+
 
 def mb_genre(artist: str, title: str) -> Tuple[str,float]:
     if not artist and not title:

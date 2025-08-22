@@ -1,10 +1,14 @@
-# test_caption.py
-import asyncio, sys, os, json, argparse
+########################################
+# test_caption.py (캡션 서버 단독 테스트; argparse → config.json)
+########################################
+import asyncio, sys, os, json
 from contextlib import AsyncExitStack
 from mcp.client.session import ClientSession
 from mcp.client.stdio import stdio_client, StdioServerParameters
 
+CONFIG_PATH = os.environ.get("DAYLINE_CONFIG", "config.json")
 CAPTION_SERVER = "servers/caption_server.py"
+
 
 def extract_payload(res):
     # 1) FastMCP가 구조화해서 준 결과가 있으면 그걸 그대로 사용
@@ -21,21 +25,27 @@ def extract_payload(res):
     # 3) 마지막 수단: 간단 문자열화
     return {"raw": str(res)}
 
-async def main():
-    ap = argparse.ArgumentParser(description="Caption server single test")
-    ap.add_argument("--image", "-i", default="bom.jpeg", help="이미지 파일 경로")
-    args = ap.parse_args()
 
-    if not os.path.isfile(args.image):
-        print(f"[error] 이미지 파일이 없습니다: {args.image}", file=sys.stderr)
-        sys.exit(1)
+async def main():
+    try:
+        with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+            cfg = json.load(f)
+    except FileNotFoundError:
+        cfg = {}
+    image = cfg.get("image", "sample.jpg")
+
+    if not os.path.isfile(image):
+        print(f"[error] 이미지 파일이 없습니다: {image}", file=sys.stderr)
+        os._exit(1)
 
     async with AsyncExitStack() as stack:
+        env = os.environ.copy()
+        env["PYTHONPATH"] = os.getcwd() + (os.pathsep + env["PYTHONPATH"] if env.get("PYTHONPATH") else "")
         params = StdioServerParameters(
             command=sys.executable,
             args=[CAPTION_SERVER],
             cwd=os.getcwd(),
-            env=os.environ.copy(),
+            env=env,
         )
         read, write = await stack.enter_async_context(stdio_client(params))
         session = ClientSession(read, write)
@@ -51,10 +61,7 @@ async def main():
             pong = await session.call_tool("ping")
             print("Ping:", extract_payload(pong))
 
-        # 캡션 생성 호출 (중요: input 키로 감싸기)
-        res = await session.call_tool("caption_image", {"input": {"path": args.image}})
-
-        # JSON 직렬화 가능한 페이로드만 출력
+        res = await session.call_tool("caption_image", {"input": {"path": image}})
         payload = extract_payload(res)
         print(json.dumps(payload, ensure_ascii=False, indent=2))
 

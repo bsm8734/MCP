@@ -9,7 +9,6 @@ from openai import OpenAI
 from PIL import Image
 from schemas import ImageInput, CaptionResult
 
-
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 MODEL_VISION = os.getenv("OPENAI_MODEL_VISION","gpt-4o-mini")

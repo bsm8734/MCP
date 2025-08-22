@@ -1,7 +1,7 @@
 ########################################
 # schemas.py (공유 스키마)
 ########################################
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import List, Optional, Literal, Dict, Any
 
 class ImageInput(BaseModel):
