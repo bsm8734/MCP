@@ -2,7 +2,7 @@
 # servers/mbti_server.py (MBTI 성향 전용)
 ########################################
 from fastmcp import FastMCP
-from schemas import MBTIInput, MBTITraits
+from FinalProject.schemas import MBTIInput, MBTITraits
 from utils.style import MBTI_TRAIT_MAP
 
 app = FastMCP("mbti-mcp")

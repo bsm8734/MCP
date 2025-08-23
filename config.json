@@ -1,11 +1,5 @@
 {
   "image": "bom.jpeg",
-  "playlist": null,
-  "mbti": "ENFP",
-  "diary": null,
-  "persona": { "age": 27, "gender": "female", "nationality": "KR" },
-  "target": 14,
-  "timeout": 8.0,
-  "allow_no_image": true,
-  "weather": true
+  "weather": true,
+  "prompt": "메타만 뽑아줘. 주소는 프라이버시 때문에 끄고 날씨만 알려줘."
 }

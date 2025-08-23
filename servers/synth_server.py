@@ -5,7 +5,7 @@ import os, json
 from fastmcp import FastMCP
 from dotenv import load_dotenv
 from openai import OpenAI
-from schemas import DaylineInput, DaylineOutput
+from FinalProject.schemas import DaylineInput, DaylineOutput
 from utils.style import style_tokens
 
 load_dotenv()

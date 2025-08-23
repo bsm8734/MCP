@@ -3,7 +3,7 @@
 ########################################
 import os
 from fastmcp import FastMCP
-from schemas import PlaylistInput, PlaylistMoodResult
+from FinalProject.schemas import PlaylistInput, PlaylistMoodResult
 from utils.playlist import summarize_features, label_mood
 
 app = FastMCP("playlist-mcp")

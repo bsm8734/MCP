@@ -5,7 +5,7 @@ import os
 from fastmcp import FastMCP
 from dotenv import load_dotenv
 from openai import OpenAI
-from schemas import DiaryInput, DiarySummary
+from FinalProject.schemas import DiaryInput, DiarySummary
 
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))

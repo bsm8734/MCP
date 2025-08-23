@@ -1,5 +1,5 @@
 from mcp.server.fastmcp import FastMCP
-from schemas import PlaylistMoodResult
+from FinalProject.schemas import PlaylistMoodResult
 from utils.playlist_search import analyze_textfile_tracks
 
 app = FastMCP("playlist-search-mcp")

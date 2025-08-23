@@ -2,7 +2,7 @@
 # servers/trackinfo_server.py (텍스트 플레이리스트 전용)
 ########################################
 from fastmcp import FastMCP
-from schemas import TextPlaylistInput, TextPlaylistMoodResult, TrackInfo
+from FinalProject.schemas import TextPlaylistInput, TextPlaylistMoodResult, TrackInfo
 from utils.track_lookup import parse_line, itunes_genre, mb_genre
 from utils.playlist import mood_from_genres
 
