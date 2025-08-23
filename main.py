@@ -47,8 +47,9 @@ def _extract_payload(res):
 
 async def _call_mcp_tool(server_py: str, tool_name: str, arguments: Dict[str, Any], timeout: float = 20.0) -> Dict[str, Any]:
     """
-    서버를 stdio로 스폰해 단일 tool 호출을 수행하고 결과 dict로 반환.
-    (데모 단순화를 위해 매 호출마다 스폰; 실제 서비스는 세션 재사용 권장)
+    서버를 stdio로 스폰해 단일 tool 호출을 수행하고 결과 dict로 반환
+    데모 단순화를 위해 매 호출마다 스폰
+    실제 서비스는 세션 재사용 권장
     """
     env = os.environ.copy()
     # servers/ 와 utils/ 가 같은 레벨 → 루트를 PYTHONPATH에 추가
@@ -65,7 +66,7 @@ async def _call_mcp_tool(server_py: str, tool_name: str, arguments: Dict[str, An
         return _extract_payload(res)
 
 # =========================================================
-# LangChain Tools (LLM이 호출할 “툴” 래퍼)
+# LangChain Tools (LLM이 호출할 Tool 래퍼)
 # =========================================================
 @tool("caption_image_tool")
 def caption_image_tool(path: str) -> str:
@@ -86,8 +87,7 @@ def exif_metadata_tool(path: str, weather: bool = True, address: bool = True) ->
         args = {"input": {"path": p}}
         if w:
             args["weather"] = {"use_open_meteo": True}
-        # exif_server.py가 address 토글을 인자로 받도록 구현되어 있어야 함
-        args["address"] = bool(a)
+        args["address"] = bool(a) # exif_server.py가 address 토글을 인자로 받도록 구현되어 있어야 함
         return await _call_mcp_tool(EXIF_SERVER, "extract_image_metadata", args)
     out = asyncio.run(_run(path, weather, address))
     return json.dumps(out, ensure_ascii=False)
@@ -235,7 +235,7 @@ def collect_node(state: State) -> Dict:
     return updates
 
 # =========================================================
-# ✨ 일기 작성 노드 (LLM만 사용, 툴 호출 없음)
+# 일기 작성 노드 (LLM만 사용, 툴 호출 없음)
 # =========================================================
 def compose_diary_node(state: State) -> Dict:
     """

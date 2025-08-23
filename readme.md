@@ -37,8 +37,6 @@
 - def `_call_mcp_tool`
   - 서버를 stdio로 스폰하여 단일 tool 호출을 수행하고 결과 dict로 반환
     - stdio로 스폰: main.py가 MCP 서버 파이썬 파일을 서브프로세스로 실행하고, 표준입출력(standard input/output) 파이프를 통해 데이터를 주고받음 (네트워크 소켓 없이 로컬 파이프로 통신)
-    - 단일 tool 호출: 그 서버가 제공하는 MCP tool을 딱 1번 호출해서 결과를 받음
-    - 결과 dict로 반환: MCP 응답 객체에서 **구조화된 payload(JSON)**를 뽑아 파이썬 dict로 만들어 반환함
     ```python
     async def _call_mcp_tool(server_py, tool_name, arguments):
         # 1) 서버 프로세스 띄우기 (stdio)
@@ -55,6 +53,8 @@
             # 5) payload 추출 → dict 반환
             return _extract_payload(res)
     ```
+- def `_extract_payload`
+  - _call_mcp_tool 결과물을 → dict/text 로 평탄화
 
 # schemas.py
 

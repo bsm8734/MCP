@@ -11,7 +11,7 @@ from schemas import ImageInput, CaptionResult
 
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-MODEL_VISION = os.getenv("OPENAI_MODEL_VISION","gpt-4o-mini")
+MODEL_VISION = os.getenv("OPENAI_MODEL_VISION", "gpt-4o-mini")
 OPENAI_TIMEOUT = float(os.getenv("OPENAI_TIMEOUT", "30"))
 MAX_SIDE = int(os.getenv("CAPTION_MAX_SIDE", "1280"))
 app = FastMCP("caption-mcp")
