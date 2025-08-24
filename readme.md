@@ -2,20 +2,17 @@
  📦 프로젝트 구조 (마이크로서비스형 — "한 서버 = 한 역할")  
  ├─ README.md  
  ├─ servers/  
- │   ├─ caption_server.py        # 이미지 캡션
- │   ├─ exif_server.py           # EXIF/위치/날씨 전용
-
+ │   ├─ ✅caption_server.py        # 이미지 캡션
+ │   ├─ ✅exif_server.py           # EXIF/위치/날씨 전용
  │   ├─ playlist_server.py       # (숫자 피처 입력/Spotify) 플레이리스트 경향성 전용
  │   ├─ trackinfo_server.py      # 텍스트 기반 트랙명 → 공개 API 조회 → 장르/무드 추론
  │   ├─ mbti_server.py           # MBTI 성향 전용
  │   ├─ diary_server.py          # 일기 요약/감정 전용
  │   └─ synth_server.py          # 최종 10~20자 요약 전용
-
- ├─ main.py                      # 오케스트레이터 (여러 MCP 서버 호출)
- ├─ schemas.py                   # Pydantic 스키마 (공유)
+ ├─ ✅main.py                      # 오케스트레이터 (여러 MCP 서버 호출)
+ ├─ ✅schemas.py                   # Pydantic 스키마 (공유)
  ├─ utils/
- │   ├─ exif_geo.py
-
+ │   ├─ ✅exif_geo.py
  │   ├─ playlist.py
  │   ├─ track_lookup.py          # iTunes/MusicBrainz 조회 + 장르→무드 매핑 보조
  │   └─ style.py
@@ -23,14 +20,6 @@
  ├─ requirements.txt
  └─ .env
 ```
-
-# servers/caption_server.py
-
-- 
-
-# servers/exif_server.py
-
-## exif_geo.py
 
 # main.py
 

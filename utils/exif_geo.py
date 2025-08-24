@@ -91,7 +91,6 @@ def lookup_weather(lat: float, lon: float, exif_datetime: Optional[str]) -> Opti
 
 # ----- 역지오코딩(Nominatim) -----
 HEADERS_NOMINATIM = {
-    # 연락처/도메인으로 바꿔주세요 (요청 예절)
     "User-Agent": "dayline-mcp/1.0 (contact: you@example.com)"
 }
 
